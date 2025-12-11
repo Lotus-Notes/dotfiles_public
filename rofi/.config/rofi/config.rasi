@@ -1,0 +1,12 @@
+
+//@theme "pew-rofi"
+
+configuration {
+    font: "JetBrainsMono Nerd Font 14";
+    show-icons: true;
+    icon-theme: "Papirus";
+    sidebar-mode: false;
+    modi: "drun";
+}
+
+@theme "~/.config/rofi/pew_theme.rasi"

@@ -1,0 +1,66 @@
+return {
+  "bfredl/nvim-ipy",
+  ft = { "python", "jupyter" },
+  dependencies = {
+    -- 1) slime (required by vim-ipython-cell)
+    {
+      "jpalardy/vim-slime",
+      init = function()
+        -- Send to Neovim's built-in :terminal (not tmux)
+        vim.g.slime_target = "neovim"
+        vim.g.slime_python_ipython = 1
+      end,
+      config = function()
+        -- Helper: bind slime to the most recent terminal buffer
+        local function slime_set_last_term()
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.bo[buf].buftype == "terminal" then
+              local ok, jobid = pcall(vim.api.nvim_buf_get_var, buf, "terminal_job_id")
+              if ok and jobid then
+                vim.g.slime_target = "neovim"
+                vim.g.slime_neovim_config = { jobid = jobid }
+                vim.notify(("vim-slime target: term buf #%d (job %d)"):format(buf, jobid))
+                return
+              end
+            end
+          end
+          vim.notify("No terminal buffer found. Run :terminal first.", vim.log.levels.ERROR)
+        end
+
+        -- Key: spawn IPython terminal and auto-bind slime
+        vim.keymap.set("n", "<leader>si", function()
+          vim.cmd("botright split | terminal ipython --matplotlib")
+          vim.defer_fn(slime_set_last_term, 200)
+        end, { desc = "Start IPython terminal & bind slime" })
+
+        -- Key: (re)bind slime to latest terminal
+        vim.keymap.set("n", "<leader>st", slime_set_last_term, { desc = "Bind slime to last terminal" })
+      end,
+    },
+
+    -- 2) VS Code–style cells that send via slime
+    {
+      "hanschen/vim-ipython-cell",
+      init = function()
+        -- Use TAGS (not marks) and recognize these cell headers:
+        vim.g.ipython_cell_delimit_cells_by = "tags"
+        vim.g.ipython_cell_tag = { "# %%", "#%%", "# <codecell>", "##" }
+      end,
+      config = function()
+        -- Cell workflow keymaps
+        vim.keymap.set("n", "<leader>rc", ":IPythonCellExecuteCell<CR>",       { desc = "Run current cell" })
+        vim.keymap.set("n", "<leader>ra", ":IPythonCellExecuteCellJump<CR>",   { desc = "Run cell & jump" })
+        vim.keymap.set("n", "<leader>rn", ":IPythonCellNextCell<CR>",          { desc = "Next cell" })
+        vim.keymap.set("n", "<leader>rp", ":IPythonCellPrevCell<CR>",          { desc = "Prev cell" })
+        vim.keymap.set("n", "<leader>rl", ":IPythonCellClear<CR>",             { desc = "Clear IPython" })
+      end,
+    },
+  },
+
+  -- Keep nvim-ipy around for its own REPL workflow if you want it
+  config = function()
+    vim.keymap.set("n", "<leader>rr", ":IPython<CR>", { desc = "Start/attach nvim-ipy kernel" })
+    -- nvim-ipy built-ins still work: \r (line/visual), \R (buffer), \x (interrupt), \z (restart)
+  end,
+}
+

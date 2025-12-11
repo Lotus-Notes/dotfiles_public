@@ -1,0 +1,142 @@
+/* ~/.config/rofi/config.rasi  — Catppuccin-Mocha-ish */
+
+* {
+  /* Palette (Catppuccin Mocha-ish) */
+  bg:          rgba(17, 17, 27, 0.70);   /* overlay w/ transparency */
+  surface0:    #1e1e2e;
+  surface1:    #181825;
+  text:        #cdd6f4;
+  subtext:     #a6adc8;
+  mauve:       #cba6f7;
+  blue:        #89b4fa;
+  green:       #a6e3a1;
+  red:         #f38ba8;
+  peach:       #fab387;
+  yellow:      #f9e2af;
+
+  /* Typography & shared */
+  font: "JetBrainsMono Nerd Font 13";
+  background: @bg;
+  text-color: @text;
+  border: 0;
+  border-radius: 10px;
+  margin: 6px;
+}
+
+window {
+  background-color: @background;
+  border-radius: 12px;
+  width: 480px;
+  padding: 12px;
+}
+
+mainbox {
+  padding: 8px;
+  spacing: 8px;
+}
+/*
+inputbar {
+  background-color: mix(@surface0, @bg, 0.5);
+  padding: 8px 10px;
+  spacing: 8px;
+}
+*/
+prompt {
+  text-color: @subtext;
+}
+
+entry {
+  background-color: transparent;
+  text-color: @text;
+  placeholder: "Type to search…";
+}
+
+listview {
+  lines: 10;
+  spacing: 6px;
+  scrollbar: true;
+  fixed-height: 0;
+  dynamic: true;
+  cycle: false;
+}
+
+scrollbar {
+  handle-width: 6px;
+  border-radius: 6px;
+  background-color: transparent;
+  handle-color: rgba(255,255,255,0.10);
+}
+
+element {
+  padding: 7px 10px;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+element-text {
+  text-color: inherit;
+}
+
+element-icon {
+  size: 24px;
+  margin: 0 10px 0 2px;
+}
+
+element normal {
+  background-color: transparent;
+  text-color: @text;
+}
+
+element alternate.normal {
+  /* subtle zebra */
+  background-color: rgba(255,255,255,0.03);
+}
+
+element selected {
+  /* highlighted row */
+  background-color: rgba(203,166,247,0.18); /* mauve w/ alpha */
+  text-color: @mauve;
+}
+
+element active {
+  /* “active” apps/windows (window mode) */
+  background-color: rgba(137,180,250,0.12); /* blue */
+  text-color: @blue;
+}
+
+element urgent {
+  background-color: rgba(243,139,168,0.15); /* red */
+  text-color: @red;
+}
+
+/* Footer (message line, etc.) */
+message {
+  background-color: transparent;
+  border: 0;
+  padding: 4px 8px 0 8px;
+  text-color: @subtext;
+}
+
+/* Modes line (if shown) */
+mode-switcher {
+  background-color: transparent;
+  spacing: 6px;
+}
+
+button {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background-color: rgba(255,255,255,0.04);
+  text-color: @subtext;
+}
+button selected, button active {
+  background-color: rgba(203,166,247,0.18);
+  text-color: @mauve;
+}
+
+/* Optional: separator line style */
+separator {
+  color: rgba(255,255,255,0.08);
+  padding: 4px 0;
+}
+

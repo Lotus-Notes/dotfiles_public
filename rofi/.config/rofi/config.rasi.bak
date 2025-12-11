@@ -1,0 +1,14 @@
+
+//@theme "pew-rofi"
+
+configuration {
+    font: "JetBrainsMono Nerd Font 13";
+    show-icons: true;
+    icon-theme: "Papirus";
+    drun-display-format: "{icon} {name} <span weight='light' foreground='#aaaaaa'>({comment})</span>";
+    location: 0;
+    sidebar-mode: false;
+    modi: "drun";
+}
+
+@theme "/usr/share/rofi/themes/Arc-Dark.rasi"

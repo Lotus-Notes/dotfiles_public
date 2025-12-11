@@ -1,0 +1,118 @@
+{
+    "reload_style_on_change": true,
+    "layer": "top",
+    "spacing": 0,
+    "height": 0,
+
+    "margin-top": 8,
+    "margin-right": 8,
+    "margin-bottom": 0,
+    "margin-left": 8,
+
+    "modules-left": [
+        ""
+    ],
+
+    "modules-center": [
+        "hyprland/workspaces"
+
+    ],
+
+    "modules-right": [
+        "tray",
+        "cpu_text",
+        "cpu",
+        "memory",
+        "battery",
+        "network",
+        "pulseaudio",
+        "clock"
+    ],
+
+    "hyprland/workspaces": {
+        "format": "Mana Pool {id} <span foreground='#a6e3a1'>{icon}</span>",
+        "format-icons": {
+        "active": "󰀘 ",
+        "default": "",
+        },
+        "disable-scroll": true,
+        "all-outputs": false,
+        "tooltip": false
+     
+    },
+
+    "tray": {
+        "spacing": 10,
+        "tooltip": false
+    },
+
+    "clock": {
+        "format": "<span foreground='#f5c2e7'>  </span>{:%I:%M %p}",
+        "tooltip": false
+    },
+
+    "cpu": {
+        "format": "CPU {usage}%",
+        "interval": 2,
+
+        "states": {
+            "critical": 90
+        }
+    },
+
+    "memory": {
+        "format": "RAM {percentage}%",
+        "interval": 2,
+
+        "states": {
+            "critical": 80
+        }
+    },
+
+    
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "<span size='13000' foreground='#a6e3a1'>{icon} </span> {capacity}%",
+    "format-warning": "<span size='13000' foreground='#B1E3AD'>{icon} </span> {capacity}%",
+    "format-critical": "<span size='13000' foreground='#E38C8F'>{icon} </span> {capacity}%",
+    "format-charging": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
+    "format-plugged": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
+    "format-alt": "<span size='13000' foreground='#B1E3AD'>{icon} </span> {time}",
+    "format-full": "<span size='13000' foreground='#B1E3AD'> </span>{capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "tooltip-format": "<span foreground='#f5c2e7'>  </span>{time}"
+  },
+
+    "network": {
+                  
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "format": "{icon}",
+        "format-wifi": "{icon}{essid}",
+        "format-ethernet": "󰀂",
+        "format-disconnected": "󰤮",
+
+        "format-wifi" : "  {essid}",
+        "format-ethernet": "<span size='13000' foreground='#89b4fa'>\udb80\ude01</span> Wired",
+        "format-disconnected" : "no network",
+        "interval": 5,
+        "tooltip": false
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5,
+        "max-volume": 100,
+        "format": "{icon} {volume}%",
+        "format-icons": {
+          "default": ["", "", " "]
+        },
+        "format-muted": "",
+        "format-bluetooth": "vol {volume}%",
+        "nospacing": 1,
+        "on-click": "pavucontrol",
+        "tooltip": true
+    }
+
+}

@@ -1,0 +1,11 @@
+# Neovim plugins (never commit these)
+nvim/.config/nvim/pack/
+nvim/.local/share/nvim/
+nvim/.cache/
+
+# Generic plugin dirs if you ever have them
+**/pack/
+**/site/
+**/start/
+**/opt/
+

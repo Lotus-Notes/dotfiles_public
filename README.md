@@ -6,4 +6,10 @@ The following are a snapshot of my current dotfiles for my Linux workstation the
   <img src="./assets/main.png" width="100%">
 </p>
 
+<p align="center">
+  <img src="./assets/nvim_ff_btop.png" width="100%">
+</p>
 
+<p align="center">
+  <img src="./assets/rofi_window.png" width="100%">
+</p>

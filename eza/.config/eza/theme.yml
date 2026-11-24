@@ -1,0 +1,84 @@
+colors:
+  rosewater: "#f5e0dc"
+  bg: "1e1e2e"
+  fg: "cdd6f4"
+  surface0: "313244"
+  overlay0: "6c7086"
+  blue: "89b4fa"
+  lavender: "#b4befe"
+  mauve: "#cba6f7"
+  pink: "#f5c2e7"
+  green: "a6e3a1"
+  yellow: "f9e2af"
+  # yellow: "cfcd9c"
+  peach: "fab387"
+  cyan: "89dceb"
+  red: "f38ba8"
+
+header:
+  foreground: "#f5c2e7"
+  is_bold: true
+
+users:
+  user_you:
+    foreground: "#cba6f7"
+  user_root:
+    foreground: "#f5e0dc"
+  user_other:
+    foreground: "#f5e0dc"
+
+group:
+  foreground: "#f5e0dc"
+
+date:
+  foreground: "#cba6f7"
+
+perms:
+  user_read:
+    foreground: "#cba6f7"
+  user_write:
+    foreground: "#94e2d5"
+  user_execute_file:
+    foreground: "#f5c2e7"
+    is_bold: true
+  user_execute_other:
+    foreground: "#f5c2e7"
+    is_bold: true
+
+  group_read:
+    foreground: "#cba6f7"
+  group_write:
+    foreground: "#f38ba8"
+  group_execute:
+    foreground: "#f5c2e7"
+    is_bold: true
+
+  other_read:
+    foreground: "#cba6f7"
+  other_write:
+    foreground: "#f38ba8"
+  other_execute:
+    foreground: "#f5c2e7"
+    is_bold: true
+
+  special_user_file:
+    foreground: "#f9e2af"
+  special_other:
+    foreground: "#f9e2af"
+
+  attribute:
+    foreground: "#6c7086"
+
+size:
+  major:
+    foreground: "#bac2de"
+  minor:
+    foreground: "#bac2de"
+  number_byte:
+    foreground: "#bac2de"
+  number_kilo:
+    foreground: "#bac2de"
+  number_mega:
+    foreground: "#bac2de"
+  number_giga:
+    foreground: "#bac2de"

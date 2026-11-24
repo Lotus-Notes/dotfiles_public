@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# Open a clipboard history entry (port of omarchy-clipboard-open): images in
+# Tensaku, URLs in the default browser, other text in the default editor.
+
+BIN=$(dirname "$(readlink -f "$0")")
+
+history_index=""
+history_path="${XDG_STATE_HOME:-$HOME/.local/state}/clipboard/history.json"
+
+while (( $# > 0 )); do
+  case "$1" in
+    --history-index)
+      history_index="${2:-}"
+      shift 2
+      ;;
+    *)
+      echo "Usage: clipboard-open --history-index <index>" >&2
+      exit 1
+      ;;
+  esac
+done
+
+[[ $history_index =~ ^[0-9]+$ ]] || exit 1
+[[ -r $history_path ]] || exit 1
+
+entry_type=$(jq -er --argjson index "$history_index" '.[$index].type' "$history_path") || exit 1
+
+open_image() {
+  local path="$1"
+
+  [[ -r $path ]] || exit 1
+  # The overlay has already closed by the time this runs, so say why nothing opened.
+  if ! command -v tensaku >/dev/null; then
+    command -v notify-send >/dev/null && notify-send -u low "Clipboard" "Install tensaku (AUR: tensaku-bin) to edit images"
+    exit 1
+  fi
+
+  # Deliberate fix over Omarchy, which hands Tensaku the history file itself:
+  # tensaku-edit saves over its input, and history images are named by the hash
+  # of their original bytes, so recopying the original would bring back the
+  # annotation. Edit a copy instead; copying the result (Enter in Tensaku) adds
+  # it to history as a new entry. Tensaku runs in the foreground (even beside
+  # another open Tensaku), so the copy is removed when it exits, whether the
+  # edit was saved, cancelled or failed; the clipboard and history hold their
+  # own copies of any result.
+  local open_dir
+  open_dir="${XDG_STATE_HOME:-$HOME/.local/state}/clipboard/open"
+  mkdir -p "$open_dir"
+  work=$(mktemp --tmpdir="$open_dir" "clipboard.XXXXXX.${path##*.}") || exit 1
+  trap 'rm -f -- "$work"' EXIT
+  cp -- "$path" "$work" || exit 1
+  "$BIN/tensaku-edit" "$work"
+}
+
+open_text() {
+  local text="$1"
+  local url=""
+  local open_dir=""
+  local open_file=""
+
+  url=$(grep -Eom1 'https?://[^[:space:]"'\''<>]+' <<<"$text" || true)
+  if [[ -z $url && $text =~ ^[[:space:]]*([[:alnum:]][[:alnum:].-]+\.[[:alpha:]]{2,})(/[^[:space:]]*)?[[:space:]]*$ ]]; then
+    url="https://${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
+  fi
+
+  if [[ -n $url ]]; then
+    exec setsid xdg-open "$url"
+  fi
+
+  open_dir="${XDG_STATE_HOME:-$HOME/.local/state}/clipboard/open"
+  mkdir -p "$open_dir"
+  open_file=$(mktemp --tmpdir="$open_dir" clipboard.XXXXXX.txt) || exit 1
+  printf '%s' "$text" >"$open_file"
+  exec "$BIN/clipboard-launch-editor" "$open_file"
+}
+
+case "$entry_type" in
+  image)
+    path=$(jq -er --argjson index "$history_index" '.[$index].path' "$history_path") || exit 1
+    open_image "$path"
+    ;;
+  text)
+    text=$(jq -er --argjson index "$history_index" '.[$index].text' "$history_path") || exit 1
+    open_text "$text"
+    ;;
+  *)
+    exit 1
+    ;;
+esac

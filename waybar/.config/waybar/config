@@ -146,7 +146,9 @@
         "format-ethernet": "[ <span size='13000' foreground='#89b4fa'>\udb80\udc02</span> wired ]",
         "format-disconnected": "[ 󰤮  ]",
         "interval": 3,
-        "tooltip": false
+        "tooltip": false,
+        
+        "on-click": "ghostty --class=Impala -e /usr/bin/impala"
     },
 
     "pulseaudio": {
@@ -160,7 +162,7 @@
         "format-bluetooth": "[ {icon} {volume}% ]",
         "nospacing": 1,
         "on-click-right": "pamixer -t",
-        "on-click": "ghostty --class=Wiremix -e /home/russ_anderson/.cargo/bin/wiremix -v output",
+        "on-click": "ghostty --class=Wiremix -e /usr/bin/wiremix",
         "tooltip": true
     },
 
@@ -168,11 +170,13 @@
   // ── Bluetooth ────────────────────────────────────────────────────
   "bluetooth": {
     "format": "{icon}",
+    "format-connected": "[ 󰂱 ]",
     "format-icons": {
       "enabled": "[  ]",
       "disabled": "[ 󰂲 ]"
     },
-    "on-click": "~/.config/waybar/scripts/bluetooth-toggle.sh",
+    //"on-click": "ghostty --class=Bluetooth -e /usr/bin/bluetui",
+    "on-click": "ghostty --class=Bluetooth -e /usr/bin/bluetui",
     "tooltip-format": "Bluetooth is {status}",
     "interval": 5
   },

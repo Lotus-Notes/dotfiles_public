@@ -1,0 +1,58 @@
+-- Send with explicit mods to the focused surface by omitting the window target,
+-- so universal clipboard shortcuts reach both normal windows and focused
+-- layer-shell surfaces such as Omarchy panels. A virtual keyboard (wtype) won't
+-- do: the physically held SUPER merges into the injected chord at the seat.
+-- The down/up split works around Hyprland send_shortcut sometimes leaving
+-- synthetic key state stuck/repeating.
+-- https://github.com/hyprwm/Hyprland/discussions/14099
+local function send_shortcut_once(mods, key)
+  return function()
+    hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "down" }))
+
+    hl.timer(function()
+      hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "up" }))
+    end, { timeout = 50, type = "oneshot" })
+  end
+end
+
+-- Lean on the terminal tag from hypr/clipboard/apps/terminals.lua so there's one
+-- definition of what counts as a terminal. Dynamic tags carry a trailing "*".
+local function active_window_is_terminal()
+  local window = hl.get_active_window()
+  if not window then
+    return false
+  end
+
+  for _, tag in ipairs(window.tags or {}) do
+    if tag:gsub("%*$", "") == "terminal" then
+      return true
+    end
+  end
+
+  return false
+end
+
+local function universal_clipboard_shortcut(default_mods, default_key, terminal_mods, terminal_key)
+  return function()
+    if active_window_is_terminal() then
+      send_shortcut_once(terminal_mods, terminal_key)()
+    else
+      send_shortcut_once(default_mods, default_key)()
+    end
+  end
+end
+
+-- Feature switches from init.lua (hypr/features.lua); all on matches Omarchy.
+local features = clipboard_features or { universal_clipboard = true, clipboard_history = true }
+
+-- Omarchy's o.bind(keys, description, dispatcher) is a thin wrapper over
+-- hl.bind that turns a command string into hl.dsp.exec_cmd.
+if features.universal_clipboard then
+  hl.bind("SUPER + C", universal_clipboard_shortcut("CTRL", "C", "CTRL", "Insert"), { description = "Universal copy" })
+  hl.bind("SUPER + V", universal_clipboard_shortcut("CTRL", "V", "SHIFT", "Insert"), { description = "Universal paste" })
+  hl.bind("SUPER + X", send_shortcut_once("CTRL", "X"), { description = "Universal cut" })
+end
+if features.clipboard_history then
+  -- Absolute path: plain Arch doesn't put ~/.local/bin on Hyprland's PATH.
+  hl.bind("SUPER + CTRL + V", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.local/bin/clipboard-menu"), { description = "Clipboard manager" })
+end

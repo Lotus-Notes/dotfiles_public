@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Open the most recent screenshot in the editor (Super + Alt + ,). Omarchy gets
+# this from its notification daemon's "invoke last notification"; this works
+# with any daemon. capture-screenshot records the path.
+
+BIN=$(dirname "$(readlink -f "$0")")
+last="${XDG_STATE_HOME:-$HOME/.local/state}/capture/last-screenshot"
+
+[[ -r $last ]] && read -r path <"$last"
+
+if [[ -z ${path:-} || ! -r $path ]]; then
+  "$BIN/capture-notify" "No recent screenshot to edit" -t 2000
+  exit 1
+fi
+
+exec setsid "${SCREENSHOT_EDITOR:-$BIN/tensaku-edit}" "$path"

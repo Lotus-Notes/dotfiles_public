@@ -129,20 +129,48 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# >>> Added by Spyder >>>
-alias spyder=/home/russ_anderson/.local/spyder-6/envs/spyder-runtime/bin/spyder
-alias uninstall-spyder=/home/russ_anderson/.local/spyder-6/uninstall-spyder.sh
-# <<< Added by Spyder <<<
+Notes() {
+  local VAULT="$HOME/Dropbox/Lotus_Notes/Lotus/"
+  cd "$VAULT" || return
+  
+  nvim
+  }
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+Code() {
+  local VAULT="$HOME/Documents/Python/"
+
+  source ~/Documents/Python/RF_PyTorch_Project/RF_env/bin/activate  
+
+  cd "$VAULT" || return
+  nvim
+  }
+
+
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 eval "$(starship init bash)"
 #source "$(fzf --bash)"
 
 #PATH = "$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
-source $(dirname $(gem which colorls))/tab_complete.sh
+#source $(dirname $(gem which colorls))/tab_complete.sh
 
-alias ls="colorls"
+#alias ls="ls -l"
+#if command -v colorls >/dev/null 2>&1; then
+#alias ls='colorls -l'
+#else
+	#alias ls='ls -l'
+#fi
+
+# File system
+if command -v eza &> /dev/null; then
+  alias ls='eza -lh --group-directories-first --icons=auto'
+  alias lsa='ls -a'
+  alias lt='eza --tree --level=2 --long --icons --git'
+  alias lta='lt -a'
+fi
+
+export LS_COLORS="$(vivid generate ~/.config/vivid/themes/lotus-catppuccin.yml)"
+
 #eval "$(/bin/brew shellenv)"
 #eval "$(/bin/brew shellenv)"
 export PATH="$HOME/.local/bin:$PATH"
@@ -153,5 +181,24 @@ eval "$(fzf --bash)"
 
 alias inv='nvim $(fzf --preview="bat --color=always {}")'
 
+alias y=yazi
+#alias pyvenv= cd source ~/Documents/Python/RF_PyTorch_Project/.venv/bin/activate
 
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+#export PATH="$HOME/.cargo/bin:$PATH"
+#. "$HOME/.cargo/env"
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
+export EDITOR=nvim
+export VISUAL=nvim
+eval "$(zoxide init bash)"
+export PEREC_DIR="$HOME/Dropbox/Lotus_Notes/Lotus"
 export PATH="$HOME/.cargo/bin:$PATH"

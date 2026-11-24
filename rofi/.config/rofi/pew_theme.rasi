@@ -16,8 +16,8 @@
 
 /* ── Window ──────────────────────────────── */
 window {
-  width: 750px;
-  height: 625px;
+  width: 900px;
+  height: 640px;
   location: center;
   blur: true;
   border: 2px;
@@ -54,18 +54,20 @@ contentbox {
 
 /* ── Imagebox ────────────────────────────── */
 imagebox {
-  background-image: url("~/.config/rofi/rofi_flower_old.png");
+  background-image: url("~/.config/rofi/black_lotus_card_rofi.jpg", height);
   background-repeat: false;
-  size: 300px 625px;
+  size: 452px 640px;
+  padding: 0px;
+  margin: 0px;
 }
 
 /* ── Elements ────────────────────────────── */
 element {
-  border-radius: 0px;
+  border-radius: 1px;
 }
 
 element-text, element-icon {
-  padding: 6px 8px;
+  padding: 6px 6px;
   spacing: 2px;
   text-color: #b4befe;
 }
@@ -96,7 +98,7 @@ entry {
 /* ── Listview ────────────────────────────── */
 listview {
   lines: 1;
-  background-color: rgba(46, 52, 64, 0.8); // solid background inside blur
+  background-color: rgba(46, 52, 64); // solid background inside blur
   border-radius: 0px 0px 3px 0px;
   padding: 5px;
 }

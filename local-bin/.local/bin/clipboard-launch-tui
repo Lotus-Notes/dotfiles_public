@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Launch a TUI command in the default terminal (port of omarchy-launch-tui).
+# Usage: clipboard-launch-tui [--app-id=<app-id>] <command> [args...]
+# The org.omarchy.* app-id is kept so the window gets the same terminal tag and
+# rules as on Omarchy (see hypr/apps/terminals.lua).
+
+if [[ ${1:-} == --app-id=* ]]; then
+  APP_ID="${1#--app-id=}"
+  shift
+else
+  APP_ID="org.omarchy.$(basename $1)"
+fi
+
+if ! command -v xdg-terminal-exec >/dev/null; then
+  command -v notify-send >/dev/null && notify-send -u low "Clipboard" "Install xdg-terminal-exec to open $1"
+  echo "clipboard-launch-tui: xdg-terminal-exec not found" >&2
+  exit 1
+fi
+
+# Omarchy launches apps through uwsm; do the same only when this compositor
+# session is actually managed by uwsm (installed is not enough).
+uwsm=()
+command -v uwsm >/dev/null && uwsm check is-active >/dev/null 2>&1 && uwsm=(uwsm-app --)
+
+exec setsid "${uwsm[@]}" xdg-terminal-exec --app-id=$APP_ID -e "$1" "${@:2}"

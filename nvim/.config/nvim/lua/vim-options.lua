@@ -3,16 +3,30 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.g.mapleader = " "
+
+-- Lines and Cursor
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
+
+-- Background
 vim.g.background = "dark"
 vim.g.foreground = "dark"
 vim.opt.swapfile = false
 
+-- Writing QOL improvements
 vim.opt.wrap = true 
+vim.opt.linebreak = true
 vim.opt.termguicolors = true
 
+vim.opt.spelllang = {"en_us"}
+vim.keymap.set("n", "<leader>ss", ":set spell!<CR>", { desc = "Toggle Spell Check" })
+
+-- Navigation
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 vim.keymap.set("n", "<c-k>", ":wincmd k<CR>")
 vim.keymap.set("n", "<c-j>", ":wincmd j<CR>")
@@ -30,6 +44,7 @@ vim.keymap.set("n", "<N>", "Nzzzv")
 vim.api.nvim_set_hl(0, "LineNr",       { fg = "#A6E3A1", bg = "none", bold = false })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#F28FAD", bg = "none", bold = true  })
 
+-- Warnings and Errors
 local function toggle_virtual_text()
   diagnostics_virtual_text = not diagnostics_virtual_text
   vim.diagnostic.config({
@@ -42,3 +57,10 @@ local function toggle_virtual_text()
 end
 
 vim.keymap.set("n", "<leader>dv", toggle_virtual_text, { desc = "Toggle diagnostic virtual text" })
+
+-- Terminal and Running Code
+vim.keymap.set("n", "<leader>t", function()
+  vim.cmd("vsplit")
+  vim.cmd("wincmd l")
+  vim.cmd("terminal")
+end, { desc = "Open terminal on right" })

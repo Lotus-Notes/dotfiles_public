@@ -9,3 +9,31 @@ nvim/.cache/
 **/start/
 **/opt/
 
+
+# Backup files
+*.bak
+*.swp
+*.swo
+*~
+
+# Python virtual environments
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Application caches and logs
+.cache/
+*.log
+
+# OS-generated files
+.DS_Store
+Thumbs.db

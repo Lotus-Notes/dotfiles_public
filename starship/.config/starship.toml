@@ -46,7 +46,7 @@ Fedora = "󰣛"
 Alpine = ""
 Amazon = ""
 Android = ""
-Arch = "󰣇"
+Arch = "󰣇 "
 Artix = "󰣇"
 CentOS = ""
 Debian = "󰣚"
@@ -83,8 +83,8 @@ format = '[[($all_status$ahead_behind )](fg:yellow bg:tokyo_dark_grey)]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:green"
-format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+style = "bg:tokyo_dark_grey"
+format = '[[ $symbol( $version) ](fg:green bg:tokyo_dark_grey)]($style)'
 
 [c]
 symbol = " "
@@ -122,9 +122,9 @@ style = "bg:green"
 format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
 
 [python]
-symbol = ""
+symbol = " "
 style = "bg:#ffffff"
-format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:#D0067B bg:tokyo_dark_grey)]($style)'
+format = '[[ $symbol(\($virtualenv\)) ](fg:yellow bg:tokyo_dark_grey)]($style)'
 
 [docker_context]
 symbol = ""

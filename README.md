@@ -13,3 +13,12 @@ The following are a snapshot of my current dotfiles for my Linux workstation the
 <p align="center">
   <img src="./assets/rofi_window.png" width="100%">
 </p>
+
+## Acknowledgments
+
+Special thanks to [Omarchy](https://github.com/omacom/omarchy)
+and its contributors for the clipboard, screenshot, and
+Quickshell components adapted for Lotus.
+
+See [Third-Party Notices](THIRD_PARTY_NOTICES.md) for
+attribution and licensing information.

@@ -30,18 +30,18 @@ return {
 			end
 
 			vim.keymap.set("n", "<leader>e", function()	toggle_telescope(harpoon:list()) end, { desc = "Open Harpoon-Telescope" })
-			vim.keymap.set("n", "<leader>l", function()	harpoon.ui:toggle_quick_menu(harpoon:list()) end) --Harpoon Menu
+			vim.keymap.set("n", "<leader>l", function()	harpoon.ui:toggle_quick_menu(harpoon:list()) end, {desc = "Harpoon Menu"}) --Harpoon Menu
 
-		  vim.keymap.set("n", "<leader>a", function() harpoon:list():add()	end) --Add current file to quick menu
-			vim.keymap.set("n", "<leader>d", function() harpoon:list():remove()	end) --Add current file to quick menu
+		  vim.keymap.set("n", "<leader>a", function() harpoon:list():add()	end, {desc = "Add current file (Harpoon)"}) --Add current file to quick menu
+			vim.keymap.set("n", "<leader>d", function() harpoon:list():remove()	end, {desc = "remove current file (Harpoon)"}) --Add current file to quick menu
 
       -- Select Harppon List Item --	    
-      vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end)
-      vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end)
-      vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end)
-      vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end)
-      vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end)
-      vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end)
+      vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, {desc = "Harpoon file 1"})
+      vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, {desc = "Harpoon file 2"})
+      vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, {desc = "Harpoon file 3"})
+      vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, {desc = "Harpoon file 4"})
+      vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end, {desc = "Harpoon file 5"})
+      vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end, {desc = "Harpoon file 6"})
 			--vim.keymap.set("n", "<C-5>", function() harpoon.list():prev() endr
 			--vim.keymap.set("n", "<C-tab>", function() harpoon.list():next() end)
 

@@ -22,10 +22,8 @@ vim.diagnostic.config({
 	update_in_insert = false,
 })
 
-
-
-
-vim.g.python3_host_prog = vim.fn.expand("~/.config/nvim/venv/bin/python")
+local hostname = vim.loop.os_gethostname()
+pcall(require, "host." .. hostname)
 
 
 --nnoremap("<C-d>", "<C-d>zz")

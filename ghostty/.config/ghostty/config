@@ -1,15 +1,39 @@
 #theme = rose-pine-moon
-theme = catppuccin-mocha 
+theme = Catppuccin Mocha 
 #background = #300924
 #palette = gnome
 #foreground = #26A269
 #selection-foreground = #cdd6f4
 #cursor-text = #cdd6f4
 #font-family = BerkeleyMono Nerd Font
+#font-family = "JetBrainsMono Nerd Font Mono"
 font-size = 14
 gtk-titlebar = true
 background-opacity = 0.80
 window-save-state = always
+
+##### Omarchy-inspired QoL ################
+
+confirm-close-surface = false
+resize-overlay = never
+
+cursor-style = block
+cursor-style-blink = false
+cursor-opacity = 1
+cursor-color = #f5e0dc
+cursor-text = #1e1e2e
+
+window-padding-x = 14
+window-padding-y = 14
+
+# window-padding-x = 14
+# window-padding-y = 14
+# mouse-scroll-multiplier = 0.95
+
+# Hyprland/Wayland responsiveness
+# async-backend = epoll
+
+###########################################
 
 #palette = 0=#171421
 #palette = 1=#c01c28
@@ -35,6 +59,7 @@ window-save-state = always
 selection-foreground = #33d17a
 
 #shell-integration-features = sudo
+shell-integration-features = no-cursor
 
 ##### Keybinds ##########################
 
@@ -50,6 +75,9 @@ keybind = ctrl+shift+right=new_split:right
 keybind = ctrl+shift+up=new_split:up
 keybind = ctrl+shift+down=new_split:down
 
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard
+
 ############################################
 
 #This is the configuration file for Ghostty.
@@ -57,7 +85,6 @@ keybind = ctrl+shift+down=new_split:down
 # This template file has been automatically created at the following
 # path since Ghostty couldn't find any existing config files on your system:
 #
-#   /home/russ_anderson/.config/ghostty/config
 #
 # The template does not set any default options, since Ghostty ships
 # with sensible defaults for all options. Users should only need to set

@@ -1,0 +1,5 @@
+#!/bin/bash
+# Toggle the clipboard history overlay (port of omarchy-menu-clipboard).
+
+# By path, matching clipboard-launch (named lookup breaks next to a default shell).
+qs ipc -p "$HOME/.config/quickshell/clipboard" call clipboard toggle
